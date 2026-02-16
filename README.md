@@ -1,36 +1,118 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# DG Micropronix Website
 
-## Getting Started
+A modern, professional website for **DG Micropronix Pvt. Ltd.** — a technology-driven engineering company with 30 years of experience in IT infrastructure, electrical automation, surveillance, fire safety, and condition monitoring solutions.
 
-First, run the development server:
+## 🚀 Features
+
+- **Modern Tech Stack**: Next.js 14 (App Router), TypeScript, Tailwind CSS, Framer Motion
+- **Responsive Design**: Mobile-first, fully responsive across all devices
+- **Smooth Animations**: Professional motion effects and transitions
+- **SEO Optimized**: Comprehensive metadata and semantic HTML
+- **Performance**: Fast loading, optimized components
+- **Professional UI/UX**: Clean, corporate aesthetic with generous whitespace
+
+## 📋 Pages
+
+- **Home** - Hero, value chain visualization, KPI stats, services overview, client logos
+- **About** - Company story, milestones timeline, vision/mission, founder's message, certifications, locations
+- **Services** - Five service pillars with flow diagram and detailed descriptions
+- **Projects** - Filterable project portfolio (by state and service category)
+- **Clients & Partners** - Customer list, OEM partners, dedication values
+- **Contact** - Contact form, office locations, quick contact info
+
+## 🛠 Tech Stack
+
+- **Framework**: Next.js 14 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Animations**: Framer Motion
+- **Icons**: Lucide React
+- **Fonts**: Inter (Google Fonts)
+
+## 📦 Installation
 
 ```bash
+# Install dependencies
+npm install
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# Build for production
+npm run build
+
+# Start production server
+npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🌐 Development
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The development server runs at [http://localhost:3000](http://localhost:3000)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🚢 Deployment
 
-## Learn More
+This project is optimized for deployment on:
+- **Vercel** (recommended)
+- **Netlify**
+- Any Node.js hosting platform
 
-To learn more about Next.js, take a look at the following resources:
+### Deploy to Vercel
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm i -g vercel
+vercel
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📁 Project Structure
 
-## Deploy on Vercel
+```
+src/
+├── app/                 # Next.js App Router pages
+│   ├── layout.tsx       # Root layout with Navbar + Footer
+│   ├── page.tsx         # Home page
+│   ├── about/           # About page
+│   ├── services/        # Services page
+│   ├── projects/        # Projects page
+│   ├── clients/         # Clients & Partners page
+│   └── contact/         # Contact page
+├── components/          # React components
+│   ├── Navbar.tsx
+│   ├── Footer.tsx
+│   ├── Hero.tsx
+│   ├── Stats.tsx
+│   ├── ValueChain.tsx
+│   ├── ServiceFlow.tsx
+│   ├── ServiceCard.tsx
+│   ├── Timeline.tsx
+│   ├── ProjectCard.tsx
+│   ├── ContactForm.tsx
+│   ├── ClientLogos.tsx
+│   └── SectionHeader.tsx
+└── lib/
+    └── data.ts          # Company data (services, projects, etc.)
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🎨 Design System
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Primary Color**: Deep Navy (#0A1628)
+- **Accent Color**: Electric Blue (#2563EB)
+- **CTA Color**: Orange (#F97316)
+- **Typography**: Inter font family
+- **Style**: Minimal, corporate-tech aesthetic
+
+## 📄 License
+
+© 2024 DG Micropronix Pvt. Ltd. All rights reserved.
+
+## 🏢 About DG Micropronix
+
+DG Micropronix Pvt. Ltd. is an ISO 9001, 20000-1, 27001, CMMi3 Certified MSME Company delivering end-to-end system integration across:
+
+- IT Infrastructure
+- Electrical & Industrial Automation
+- Plant Safety & Fire Suppression
+- Surveillance & Security
+- Condition Monitoring & IoT
+
+**Contact**: info@dgmpl.com | +91-9051049911 | www.dgmpl.com
+

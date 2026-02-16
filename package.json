@@ -1,6 +1,6 @@
 {
-  "name": "dg_website_temp",
-  "version": "0.1.0",
+  "name": "dg-micropronix-website",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -11,7 +11,9 @@
   "dependencies": {
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.2.35"
+    "next": "14.2.35",
+    "framer-motion": "^11.15.0",
+    "lucide-react": "^0.468.0"
   },
   "devDependencies": {
     "typescript": "^5",
