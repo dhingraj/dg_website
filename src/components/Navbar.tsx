@@ -11,7 +11,6 @@ const navLinks = [
   { href: "/about", label: "About" },
   { href: "/services", label: "Services" },
   { href: "/projects", label: "Projects" },
-  { href: "/clients", label: "Clients & Partners" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -21,8 +20,8 @@ export default function Navbar() {
   const pathname = usePathname();
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll);
+    const handleScroll = () => setIsScrolled(window.scrollY > 10);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -30,49 +29,68 @@ export default function Navbar() {
     setIsMobileOpen(false);
   }, [pathname]);
 
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMobileOpen]);
+
+  const isActive = (href: string) => {
+    if (href === "/") return pathname === "/";
+    return pathname.startsWith(href);
+  };
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled || isMobileOpen
-          ? "bg-navy-500/95 backdrop-blur-md shadow-lg shadow-navy-500/20"
+          ? "bg-navy-500/95 backdrop-blur-md shadow-lg"
           : "bg-transparent"
       }`}
     >
       <nav className="container-max flex items-center justify-between px-4 sm:px-6 lg:px-8 h-20">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3 group">
-          <div className="w-10 h-10 rounded-xl bg-accent-500 flex items-center justify-center font-bold text-white text-lg group-hover:bg-accent-600 transition-colors">
+          <div className="w-10 h-10 rounded-xl bg-accent-500 flex items-center justify-center font-bold text-white text-lg 
+            transition-all duration-200 group-hover:bg-accent-600 group-hover:shadow-glow-accent">
             DG
           </div>
-          <div>
-            <span className="text-white font-bold text-lg tracking-tight">
+          <div className="flex flex-col">
+            <span className="text-white font-bold text-lg tracking-tight leading-none">
               Micropronix
             </span>
-            <span className="hidden sm:block text-[10px] text-accent-300 font-medium tracking-wider uppercase">
+            <span className="hidden sm:block text-[10px] text-accent-300 font-medium tracking-wider uppercase mt-0.5">
               30 Years of Innovation
             </span>
           </div>
         </Link>
 
-        {/* Desktop Nav */}
+        {/* Desktop Navigation */}
         <div className="hidden lg:flex items-center gap-1">
           {navLinks.map((link) => {
-            const isActive = pathname === link.href;
+            const active = isActive(link.href);
             return (
               <Link
                 key={link.href}
                 href={link.href}
                 className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                  isActive
+                  active
                     ? "text-white bg-white/10"
                     : "text-white/70 hover:text-white hover:bg-white/5"
                 }`}
               >
                 {link.label}
-                {isActive && (
+                {active && (
                   <motion.div
                     layoutId="activeNav"
-                    className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-accent-500 rounded-full"
+                    className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-accent-400 rounded-full"
+                    transition={{ duration: 0.2 }}
                   />
                 )}
               </Link>
@@ -83,19 +101,44 @@ export default function Navbar() {
         {/* Desktop CTA */}
         <Link
           href="/contact"
-          className="hidden lg:inline-flex items-center gap-2 px-5 py-2.5 bg-accent-500 text-white text-sm font-semibold rounded-xl hover:bg-accent-600 transition-all shadow-lg shadow-accent-500/25"
+          className="hidden lg:inline-flex items-center gap-2 px-5 py-2.5 bg-accent-500 text-white text-sm font-semibold 
+            rounded-xl transition-all duration-200 hover:bg-accent-600 hover:shadow-glow-accent hover:-translate-y-0.5"
         >
           Get in Touch
-          <ChevronRight className="w-4 h-4" />
+          <ChevronRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
         </Link>
 
-        {/* Mobile Toggle */}
+        {/* Mobile Menu Button */}
         <button
           onClick={() => setIsMobileOpen(!isMobileOpen)}
-          className="lg:hidden text-white p-2 rounded-lg hover:bg-white/10 transition-colors"
-          aria-label="Toggle menu"
+          className="lg:hidden relative w-10 h-10 flex items-center justify-center rounded-lg text-white 
+            hover:bg-white/10 transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-accent-400"
+          aria-label={isMobileOpen ? "Close menu" : "Open menu"}
+          aria-expanded={isMobileOpen}
         >
-          {isMobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          <AnimatePresence mode="wait">
+            {isMobileOpen ? (
+              <motion.div
+                key="close"
+                initial={{ opacity: 0, rotate: -90 }}
+                animate={{ opacity: 1, rotate: 0 }}
+                exit={{ opacity: 0, rotate: 90 }}
+                transition={{ duration: 0.15 }}
+              >
+                <X className="w-6 h-6" />
+              </motion.div>
+            ) : (
+              <motion.div
+                key="menu"
+                initial={{ opacity: 0, rotate: 90 }}
+                animate={{ opacity: 1, rotate: 0 }}
+                exit={{ opacity: 0, rotate: -90 }}
+                transition={{ duration: 0.15 }}
+              >
+                <Menu className="w-6 h-6" />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </button>
       </nav>
 
@@ -106,32 +149,47 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="lg:hidden bg-navy-500/98 backdrop-blur-md border-t border-white/10"
+            transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
+            className="lg:hidden bg-navy-500/98 backdrop-blur-md border-t border-white/10 overflow-hidden"
           >
-            <div className="px-4 py-4 space-y-1">
-              {navLinks.map((link) => {
-                const isActive = pathname === link.href;
+            <div className="px-4 py-6 space-y-1 max-h-[calc(100vh-5rem)] overflow-y-auto">
+              {navLinks.map((link, i) => {
+                const active = isActive(link.href);
                 return (
-                  <Link
+                  <motion.div
                     key={link.href}
-                    href={link.href}
-                    className={`block px-4 py-3 rounded-xl text-sm font-medium transition-colors ${
-                      isActive
-                        ? "text-white bg-accent-500/20 border border-accent-500/30"
-                        : "text-white/70 hover:text-white hover:bg-white/5"
-                    }`}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.05 }}
                   >
-                    {link.label}
-                  </Link>
+                    <Link
+                      href={link.href}
+                      className={`block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
+                        active
+                          ? "text-white bg-accent-500/20 border border-accent-500/30"
+                          : "text-white/70 hover:text-white hover:bg-white/5"
+                      }`}
+                    >
+                      {link.label}
+                    </Link>
+                  </motion.div>
                 );
               })}
-              <Link
-                href="/contact"
-                className="block mt-4 px-4 py-3 bg-accent-500 text-white text-sm font-semibold rounded-xl text-center"
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: navLinks.length * 0.05 }}
+                className="pt-4 mt-4 border-t border-white/10"
               >
-                Get in Touch
-              </Link>
+                <Link
+                  href="/contact"
+                  className="flex items-center justify-center gap-2 w-full px-4 py-3.5 bg-accent-500 text-white 
+                    text-sm font-semibold rounded-xl transition-all duration-200 hover:bg-accent-600"
+                >
+                  Get in Touch
+                  <ChevronRight className="w-4 h-4" />
+                </Link>
+              </motion.div>
             </div>
           </motion.div>
         )}
@@ -139,4 +197,3 @@ export default function Navbar() {
     </header>
   );
 }
-

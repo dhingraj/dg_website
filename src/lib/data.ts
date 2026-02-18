@@ -406,28 +406,37 @@ export const stateNames: Record<string, string> = {
   AS: "Assam",
 };
 
-export const clients = [
-  "Steel Authority of India Limited (SAIL)",
-  "IISCO Steel Plant",
-  "Durgapur Steel Plant",
-  "Rourkela Steel Plant",
-  "Bhilai Steel Plant",
-  "Bokaro Steel Plant",
-  "Alloy Steels Plant",
-  "Salem Steel Plant",
+export interface BrandEntity {
+  name: string;
+  logoUrl: string;
+}
+
+// Local logo paths for customers (all SAIL facilities use the same SAIL corporate logo)
+const sailLogo = "/logos/customers/sail.svg";
+
+export const clients: BrandEntity[] = [
+  { name: "Steel Authority of India Limited", logoUrl: sailLogo },
+  { name: "IISCO Steel Plant", logoUrl: sailLogo },
+  { name: "Durgapur Steel Plant", logoUrl: sailLogo },
+  { name: "Rourkela Steel Plant", logoUrl: sailLogo },
+  { name: "Bhilai Steel Plant", logoUrl: sailLogo },
+  { name: "Bokaro Steel Plant", logoUrl: sailLogo },
+  { name: "Alloy Steels Plant", logoUrl: sailLogo },
+  { name: "Salem Steel Plant", logoUrl: sailLogo },
 ];
 
-export const partners = [
-  "Cisco",
-  "HP Enterprise",
-  "Dell Technologies",
-  "Microsoft",
-  "Red Hat",
-  "Oracle",
-  "Honeywell",
-  "Schneider Electric",
-  "Siemens",
-  "ABB",
+export const partners: BrandEntity[] = [
+  { name: "HalconX", logoUrl: "/logos/halconx.svg" },
+  { name: "Cisco", logoUrl: "/logos/oems/cisco.svg" },
+  { name: "HPE", logoUrl: "/logos/oems/hpe.svg" },
+  { name: "Dell Technologies", logoUrl: "/logos/oems/dell.svg" },
+  { name: "Microsoft", logoUrl: "/logos/oems/microsoft.svg" },
+  { name: "Red Hat", logoUrl: "/logos/oems/redhat.svg" },
+  { name: "Oracle", logoUrl: "/logos/oems/oracle.svg" },
+  { name: "Honeywell", logoUrl: "/logos/oems/honeywell.svg" },
+  { name: "Schneider Electric", logoUrl: "/logos/oems/schneider.svg" },
+  { name: "Siemens", logoUrl: "/logos/oems/siemens.svg" },
+  { name: "ABB", logoUrl: "/logos/oems/abb.svg" },
 ];
 
 export const dedicationPoints = [

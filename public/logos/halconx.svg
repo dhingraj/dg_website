@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="220" height="64" viewBox="0 0 220 64" fill="none">
+  <rect width="220" height="64" rx="12" fill="#0B1736"/>
+  <path d="M26 20L36 28L26 36L16 28L26 20Z" fill="#3B82F6"/>
+  <path d="M36 28L46 20V36L36 28Z" fill="#60A5FA"/>
+  <text x="62" y="39" fill="#F8FAFC" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="700" letter-spacing="0.5">HalconX</text>
+</svg>
