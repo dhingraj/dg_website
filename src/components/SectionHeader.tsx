@@ -7,7 +7,7 @@ interface SectionHeaderProps {
   title: string;
   subtitle?: string;
   centered?: boolean;
-  light?: boolean;
+  className?: string;
 }
 
 export default function SectionHeader({
@@ -15,44 +15,30 @@ export default function SectionHeader({
   title,
   subtitle,
   centered = true,
-  light = false,
+  className = "",
 }: SectionHeaderProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.5 }}
-      className={`mb-12 md:mb-16 ${centered ? "text-center" : ""}`}
+      transition={{ duration: 0.5, ease: [0.25, 1, 0.5, 1] }}
+      className={`${centered ? "text-center" : ""} mb-10 lg:mb-12 ${className}`}
     >
       {badge && (
-        <span
-          className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider mb-4 ${
-            light
-              ? "bg-white/10 text-white/80"
-              : "bg-accent-50 text-accent-600"
-          }`}
-        >
+        <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold 
+          uppercase tracking-wider mb-4 bg-accent-50 text-accent-700 border border-accent-100">
           {badge}
         </span>
       )}
-      <h2
-        className={`text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4 ${
-          light ? "text-white" : "text-navy-500"
-        }`}
-      >
+      <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-navy-500 tracking-tight mb-3">
         {title}
       </h2>
       {subtitle && (
-        <p
-          className={`text-base md:text-lg max-w-2xl leading-relaxed ${
-            centered ? "mx-auto" : ""
-          } ${light ? "text-white/60" : "text-navy-500/60"}`}
-        >
+        <p className={`text-base text-navy-500/60 leading-relaxed ${centered ? 'max-w-2xl mx-auto' : 'max-w-2xl'}`}>
           {subtitle}
         </p>
       )}
     </motion.div>
   );
 }
-

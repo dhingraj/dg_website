@@ -31,28 +31,35 @@ export default function ProjectCard({
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.4, delay: (index % 6) * 0.05 }}
-      className="group p-6 rounded-2xl bg-white border border-gray-100 hover:border-accent-200 hover:shadow-lg transition-all duration-300"
+      viewport={{ once: true, margin: "-30px" }}
+      transition={{ duration: 0.4, delay: (index % 6) * 0.05, ease: [0.25, 1, 0.5, 1] }}
+      className="group h-full"
     >
-      <div className="flex items-start justify-between gap-3 mb-3">
-        <span
-          className={`inline-block px-3 py-1 rounded-full text-[11px] font-semibold border ${
-            categoryColors[category] || "bg-gray-50 text-gray-600 border-gray-200"
-          }`}
-        >
-          {category}
-        </span>
-        <span className="flex items-center gap-1 text-xs text-navy-500/40 font-medium flex-shrink-0">
-          <MapPin className="w-3 h-3" />
-          {stateNames[state] || state}
-        </span>
+      <div className="card-interactive h-full flex flex-col">
+        {/* Header */}
+        <div className="flex items-start justify-between gap-3 mb-4">
+          <span
+            className={`inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold border ${
+              categoryColors[category] || "bg-gray-50 text-gray-600 border-gray-200"
+            }`}
+          >
+            {category}
+          </span>
+          <span className="flex items-center gap-1 text-xs text-navy-500/50 font-medium flex-shrink-0">
+            <MapPin className="w-3 h-3" />
+            {stateNames[state] || state}
+          </span>
+        </div>
+        
+        {/* Content */}
+        <h3 className="text-base font-bold text-navy-500 mb-2 group-hover:text-accent-600 
+          transition-colors duration-200 leading-snug">
+          {title}
+        </h3>
+        <p className="text-sm text-navy-500/60 leading-relaxed flex-grow">
+          {description}
+        </p>
       </div>
-      <h3 className="text-base font-bold text-navy-500 mb-2 group-hover:text-accent-600 transition-colors">
-        {title}
-      </h3>
-      <p className="text-sm text-navy-500/60 leading-relaxed">{description}</p>
     </motion.div>
   );
 }
-

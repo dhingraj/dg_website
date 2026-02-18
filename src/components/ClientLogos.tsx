@@ -18,15 +18,24 @@ export default function ClientLogos() {
         <div className="flex flex-wrap justify-center gap-6 md:gap-8">
           {clients.map((client, i) => (
             <motion.div
-              key={client}
+              key={client.name}
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.05 }}
-              className="px-6 py-3 bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md hover:border-accent-200 transition-all"
+              className="px-6 py-3 bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md hover:border-accent-200 transition-all flex items-center gap-2"
             >
+              <img
+                src={client.logoUrl}
+                alt={client.name}
+                className="h-5 w-auto max-w-[80px] object-contain"
+                loading="lazy"
+                onError={(e) => {
+                  (e.currentTarget as HTMLImageElement).style.display = "none";
+                }}
+              />
               <span className="text-sm font-semibold text-navy-500/70 whitespace-nowrap">
-                {client}
+                {client.name}
               </span>
             </motion.div>
           ))}
